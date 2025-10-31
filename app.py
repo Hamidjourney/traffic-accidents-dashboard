@@ -2,12 +2,20 @@ import streamlit as st
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
-import streamlit as st
-st.title("Hello from Streamlit")
-st.write("If you can deploy this, the pipeline is visible.")
+
+
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+
+# st.secrets["gcp_service_account"] is a TOML table (like a dict)
+creds = Credentials.from_service_account_info(
+    dict(st.secrets["gcp_service_account"]), scopes=SCOPES
+)
+
+
 
 
 st.title("🚦 Traffic Accidents Demo Dashboard")
+st.write("If you can deploy this, the pipeline is visible.")
 
 # connect to Google Sheet
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
