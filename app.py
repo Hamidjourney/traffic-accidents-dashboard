@@ -4,7 +4,10 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
 
 # st.secrets["gcp_service_account"] is a TOML table (like a dict)
 creds = Credentials.from_service_account_info(
@@ -18,7 +21,6 @@ st.title("🚦 Traffic Accidents Demo Dashboard")
 st.write("If you can deploy this, the pipeline is visible.")
 
 # connect to Google Sheet
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"], scopes=SCOPES)
 client = gspread.authorize(creds)
 sheet = client.open("TrafficAccidents_Sample").worksheet("Data")
