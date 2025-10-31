@@ -1,0 +1,7 @@
+# Ignore Google credentials file
+service.json
+
+# Ignore any other sensitive files
+*.key
+*.pem
+.env
