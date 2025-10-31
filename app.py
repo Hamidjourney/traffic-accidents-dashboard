@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
+import streamlit as st
+st.title("Hello from Streamlit")
+st.write("If you can deploy this, the pipeline is visible.")
+
 
 st.title("🚦 Traffic Accidents Demo Dashboard")
 
