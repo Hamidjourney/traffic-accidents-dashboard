@@ -10,7 +10,6 @@ hide_toolbar = """
 """
 st.markdown(hide_toolbar, unsafe_allow_html=True)
 
-
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
@@ -43,11 +42,14 @@ chart = (
     alt.Chart(filtered)
     .mark_line(point=True)
     .encode(
-        x="Month:O",
-        y="Accidents:Q",
+        x=alt.X("Month:O", title="Month"),
+        y=alt.Y("Accidents:Q", title="Number of Accidents"),
         tooltip=["Month", "Accidents"]
     )
-    .configure_view(tooltip={"content": "none"})
+    .properties(
+        width="container",
+        height=400
+    )
 )
 
 st.altair_chart(chart, use_container_width=True)
