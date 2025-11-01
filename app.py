@@ -3,6 +3,13 @@ import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
 
+hide_toolbar = """
+    <style>
+    .vega-actions a {display:none !important;}
+    </style>
+"""
+st.markdown(hide_toolbar, unsafe_allow_html=True)
+
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -30,5 +37,19 @@ df = pd.DataFrame(sheet.get_all_records())
 years = df["Year"].unique()
 selected_year = st.selectbox("Select year", years)
 filtered = df[df["Year"] == selected_year]
-st.line_chart(filtered.set_index("Month")["Accidents"])
+import altair as alt
+
+chart = (
+    alt.Chart(filtered)
+    .mark_line(point=True)
+    .encode(
+        x="Month:O",
+        y="Accidents:Q",
+        tooltip=["Month", "Accidents"]
+    )
+    .configure_view(tooltip={"content": "none"})
+)
+
+st.altair_chart(chart, use_container_width=True)
+
 st.dataframe(filtered)
